@@ -1,11 +1,11 @@
 # **custom-model-pytorch✅**
 ##### **This is a sample code for deep learning based on PyTorch, suitable for beginners to practice and learn.It provides convenience when switching between models, loss functions, and optimizers. Additionally, it incorporates features such as tqdm and argparse. It also includes functionality to continue training from a saved training state.**
 ---
-
+In **`train.py`**:
 <!-- ## ArgumentParser -->
 **🔺Note: If you are not familiar with `ArgumentParser`, that's okay. You can easily set the parameters mentioned above in the `config.py` file.🙂**
 
-The code snippet you provided defines an argument parser using the ArgumentParser class from the argparse module. Here are the explanations of the arguments being added in **`train.py`**:
+* The code snippet you provided defines an argument parser using the ArgumentParser class from the argparse module:
   ```python
   parser = ArgumentParser()
   parser.add_argument('--DEVICE', help='cpu / cuda', type=str, default=DEVICE)
@@ -48,3 +48,50 @@ The code snippet you provided defines an argument parser using the ArgumentParse
 * **`--SAVE_CHECKPOINT_DIR`**: Specifies the directory to save checkpoints.
 * **`--LOAD_CHECKPOINT_DIR`**: Specifies the directory to load a checkpoint from.
 The args variable stores the parsed command-line arguments. These arguments provide flexibility to modify the behavior of the script based on user input.
+---
+In **tools.py**:
+
+* If you want to add your own model, you can do so by adding it in the **`model.py`** file and specifying its **`model_name`** in the **`modelSelector`** function in the **`tools.py`** file.
+
+```python
+  # This function selects the model architecture specified by model_name.
+def modelSelector(model_name, device, show_model = True):
+    if model_name == 'CustomMLPNetwork':
+        from model import CustomMLPNetwork
+        model = CustomMLPNetwork().to(device)
+    if model_name == 'CustomCNN':
+        from model import CustomCNN
+        model = CustomCNN().to(device)
+
+    # prints the model architecture if show_model is True.
+    if show_model:
+        print(model)
+
+    return model
+```
+
+* If you want to add another loss function/optimizer, you can specify their **`loss_name`** and **`optimizer_name`** in the **`lossSelector`** and **`optimizerSelector`** function and import/define them in the **`tools.py`** file.
+
+```python
+# This function selects the optimizer specified by optimizer_name and returns it with the specified learning rate.
+def optimizerSelector(optimizer_name, params, lr):
+    if optimizer_name == 'Adam':
+        from torch.optim import Adam
+        return Adam(params = params, lr = lr)
+
+# This function selects the loss function specified by loss_name and returns it.
+def lossSelector(loss_name):
+    if loss_name == 'CrossEntropyLoss':
+        from torch.nn import CrossEntropyLoss
+        return CrossEntropyLoss()
+```
+
+* If you want to add new dataset, you can specify it its **`dataset_name`** in the **`datasetSelector`** function in the **`tools.py`** file and define them in the **`dataset.py`** file.
+
+```python
+# This function selects the dataset specified by dataset_name.
+def datasetSelector(dataset_name = 'MNIST', save_dir = 'MNIST/', num_workers = 1, pin_memory = True, batch_size = 64, shuffle = False):
+    if dataset_name == 'MNIST':
+        from dataset import mnistDataset
+        return mnistDataset(save_dir = save_dir, num_workers = num_workers, pin_memory = pin_memory, batch_size = batch_size, shuffle = shuffle)
+```
