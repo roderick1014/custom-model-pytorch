@@ -95,3 +95,32 @@ def datasetSelector(dataset_name = 'MNIST', save_dir = 'MNIST/', num_workers = 1
         from dataset import mnistDataset
         return mnistDataset(save_dir = save_dir, num_workers = num_workers, pin_memory = pin_memory, batch_size = batch_size, shuffle = shuffle)
 ```
+
+## Instructions:
+
+* **To train the model:**
+   ```sh
+   python .\train.py
+   ```
+
+* **To validate the performance while training the model:, add `--VALIDATION True`:**
+   ```sh
+   python .\table_extraction.py --VALIDATION True
+   ```
+
+* **To display some samples in the dataset, add `--DISPLAY_SAMPLE 5` (5 is the number of the samples, you can change the sampling number as you want. 0 means don't display samples.):**
+   ```sh
+   python .\train.py --DISPLAY_SAMPLE 5
+   ```
+ 
+* **If you want to keep training the model from the previous training state, add `--LOAD_MODEL True` and specify the direction of the saved checkpoint by adding `--LOAD_CHECKPOINT_DIR "CHECKPOINT_DIRECTION"`:**
+  ```sh
+  python .\train.py --LOAD_MODEL True --LOAD_CHECKPOINT_DIR checkpoints/CustomCNN_20230514_125822/epoch_2.pt
+  ```
+
+* **Example (train from scratch):**
+   ```sh
+   python .\train.py --MODEL CustomCNN --DATASET_NAME MNIST --OPTIMIZER Adam --LOSS CrossEntropyLoss --DEVICE cuda --VALIDATION True --LEARNING_RATE 1e-4
+   ```
+
+**🔺Note Again: If you are not familiar with `ArgumentParser`, that's okay. You can easily set the parameters mentioned above in the `config.py` file.🙂**
