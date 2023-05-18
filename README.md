@@ -98,27 +98,27 @@ def datasetSelector(dataset_name = 'MNIST', save_dir = 'MNIST/', num_workers = 1
 
 ## Instructions:
 
-* **To train the model:**
+* **➡ To train the model:**
    ```sh
    python .\train.py
    ```
 
-* **To validate the performance while training the model:, add `--VALIDATION True`:**
+* **➡ To validate the performance while training the model:, add `--VALIDATION True`:**
    ```sh
    python .\table_extraction.py --VALIDATION True
    ```
 
-* **To display some samples in the dataset, add `--DISPLAY_SAMPLE 5` (5 is the number of the samples, you can change the sampling number as you want. 0 means don't display samples.):**
+* **➡ To display some samples in the dataset, add `--DISPLAY_SAMPLE 5` (5 is the number of the samples, you can change the sampling number as you want. 0 means don't display samples.):**
    ```sh
    python .\train.py --DISPLAY_SAMPLE 5
    ```
  
-* **If you want to keep training the model from the previous training state, add `--LOAD_MODEL True` and specify the direction of the saved checkpoint by adding `--LOAD_CHECKPOINT_DIR "CHECKPOINT_DIRECTION"`:**
+* **➡ If you want to keep training the model from the previous training state, add `--LOAD_MODEL True` and specify the direction of the saved checkpoint by adding `--LOAD_CHECKPOINT_DIR "CHECKPOINT_DIRECTION"`:**
   ```sh
   python .\train.py --LOAD_MODEL True --LOAD_CHECKPOINT_DIR checkpoints/CustomCNN_20230514_125822/epoch_2.pt
   ```
 
-* **Example (train from scratch):**
+* **➡ Example (train from scratch):**
    ```sh
    python .\train.py --MODEL CustomCNN --DATASET_NAME MNIST --OPTIMIZER Adam --LOSS CrossEntropyLoss --DEVICE cuda --VALIDATION True --LEARNING_RATE 1e-4
    ```
